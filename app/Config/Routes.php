@@ -13,3 +13,5 @@ $routes->get('/auth', 'RapatController::register');
 $routes->get('/auth', 'RapatController::login');
 $routes->get('/admin', 'RapatController::persetujuan');
 $routes->get('/', 'RapatController::index');
+$routes->get('/speech', 'SpeechController::index');
+$routes->post('speech/saveText', 'SpeechController::saveText');
