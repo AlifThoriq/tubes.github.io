@@ -118,6 +118,7 @@
     </div>
 
     <!-- Modal for creating new notulensi -->
+    <!-- Modal for creating new notulensi -->
     <div class="modal fade" id="notulensiModal" tabindex="-1" role="dialog" aria-labelledby="notulensiModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -129,7 +130,6 @@
                 </div>
                 <div class="modal-body">
                     <form id="formNotulensi">
-                        <!-- Pilihan rapat (dummy data) -->
                         <div class="form-group">
                             <label for="namaRapat">Pilih Rapat</label>
                             <select class="form-control" id="namaRapat" name="namaRapat" required>
@@ -143,10 +143,11 @@
                         <div class="form-group">
                             <label for="notulensi">Notulensi</label>
                             <textarea class="form-control" id="notulensi" rows="5" placeholder="Catatan notulensi" required></textarea>
-                            <button type="button" class="btn btn-secondary btn-speech" onclick="startSpeechRecognition()">Mulai Rekam (Speech-to-Text)</button>
+                            <button type="button" id="start-btn" class="btn btn-secondary btn-speech">Mulai Rekam</button>
+                            <button type="button" id="stop-btn" class="btn btn-secondary btn-speech">Hentikan Rekam</button>
+                            <p id="output"></p>
                         </div>
 
-                        <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary">Simpan Notulensi</button>
                     </form>
                 </div>
@@ -155,48 +156,58 @@
     </div>
 
     <script>
-        // Web Speech API for speech-to-text
-        function startSpeechRecognition() {
-            if ('webkitSpeechRecognition' in window) {
-                var recognition = new webkitSpeechRecognition();
-                recognition.lang = 'id-ID'; // Set to Indonesian or adjust as needed
-                recognition.continuous = false;
-                recognition.interimResults = false;
+        const output = document.getElementById('output');
+        const startBtn = document.getElementById('start-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        let recognition;
+        let finalTranscript = ''; // Variabel untuk menyimpan semua teks yang dihasilkan
 
-                recognition.onstart = function() {
-                    console.log('Voice recognition started...');
-                };
+        // Cek apakah Web Speech API tersedia di browser
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.lang = 'id-ID'; // Sesuaikan bahasa pengenalan suara
+            recognition.continuous = true; // Rekaman berjalan terus menerus
+            recognition.interimResults = true; // Menampilkan hasil sementara saat merekam
 
-                recognition.onresult = function(event) {
-                    var transcript = event.results[0][0].transcript;
-                    document.getElementById('notulensi').value += transcript + ' ';
-                };
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
 
-                recognition.onerror = function(event) {
-                    console.error('Error occurred in recognition: ' + event.error);
-                };
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    let transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                        document.getElementById('notulensi').value = finalTranscript; // Tambahkan hasil akhir ke textarea
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
 
-                recognition.onend = function() {
-                    console.log('Voice recognition ended.');
-                };
+                output.innerHTML = `<strong>Final:</strong> ${finalTranscript}<br><strong>Interim:</strong> ${interimTranscript}`;
+            };
 
+            recognition.onerror = (event) => {
+                console.error('Error occurred in recognition:', event.error);
+                output.innerText = 'Error: ' + event.error;
+            };
+
+            recognition.onend = () => {
+                console.log("Speech recognition ended.");
+            };
+
+            startBtn.addEventListener('click', () => {
                 recognition.start();
-            } else {
-                alert('Browser Anda tidak mendukung Web Speech API');
-            }
-        }
+                output.innerText = "Listening...";
+            });
 
-        // Dummy functions for export
-        function exportToExcel(tanggal, namaRapat) {
-            alert('Export to Excel for ' + namaRapat + ' on ' + tanggal);
-            // Implement your export logic here
-        }
-
-        function exportToPDF(tanggal, namaRapat) {
-            alert('Export to PDF for ' + namaRapat + ' on ' + tanggal);
-            // Implement your export logic here
+            stopBtn.addEventListener('click', () => {
+                recognition.stop();
+                output.innerText += "\nRecording stopped.";
+            });
+        } else {
+            output.innerText = 'Web Speech API is not supported in this browser.';
         }
     </script>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
