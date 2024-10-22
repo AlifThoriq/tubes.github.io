@@ -18,3 +18,4 @@ $routes->get('/auth', 'RapatController::register');
 $routes->get('/auth', 'RapatController::login');
 $routes->get('/persetujuan-notulen', 'RapatController::persetujuan');
 $routes->get('/', 'RapatController::index');
+$routes->get('/users', 'Users::index');
