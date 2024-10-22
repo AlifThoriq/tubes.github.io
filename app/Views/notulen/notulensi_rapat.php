@@ -6,110 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notulensi Rapat - MRapat</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            padding-top: 56px;
+            padding-top: 70px;
+            background-color: #f4f6f9;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         h1 {
             margin-bottom: 1.5rem;
+            text-align: center;
+            color: #333;
         }
 
-        .modal-content {
+        .table-container {
+            background-color: #ffffff;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-speech {
-            margin-bottom: 10px;
+        .btn-add-point {
+            background-color: #28a745;
+            color: white;
+            margin-bottom: 20px;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
+        .table th,
+        .table td {
+            vertical-align: middle;
         }
 
-        .table-responsive {
-            margin-bottom: 1.5rem;
+        .table-container {
+            margin-top: 40px;
+        }
+
+        .input-group-text {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
         }
 
         .btn-primary {
             background-color: #28a745;
-            color: white;
             border: none;
         }
 
         .btn-primary:hover {
             background-color: #218838;
-            color: white;
         }
 
         .btn-excel {
             background-color: #28a745;
-            color: white;
-            border: none;
-        }
-
-        .btn-excel:hover {
-            background-color: #218838;
-            color: white;
         }
 
         .btn-pdf {
             background-color: #dc3545;
-            color: white;
-            border: none;
-        }
-
-        .btn-pdf:hover {
-            background-color: #c82333;
-            color: white;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Navbar -->
+    <!-- Include Navbar -->
     <?= $this->include('navbar/navbar'); ?>
 
-    <div class="container mt-4">
-        <h1>Notulensi Rapat</h1>
+    <div class="container mt-5">
+        <!-- Button to Add New Notulensi Point -->
+        <button class="btn btn-add-point btn-lg" data-toggle="modal" data-target="#notulensiModal">
+            <i class="fas fa-plus"></i> Tambah Poin Notulensi
+        </button>
 
-        <!-- Button for creating a new notulensi -->
-        <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#notulensiModal">Buat Notulensi Baru</button>
-
-        <!-- List of notulensi (dummy data) -->
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
+        <!-- List of notulensi -->
+        <div class="table-container mt-5">
+            <h1 class="dashboard-title mb-4">Daftar Hasil Notulensi</h1>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
-                        <th>Tanggal</th>
                         <th>Nama Rapat</th>
-                        <th>Notulensi</th>
-                        <th>Action</th> <!-- New Action Column -->
+                        <th>Waktu</th>
+                        <th>Notulen</th>
+                        <th>Ketua</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>2024-10-15</td>
-                        <td>Rapat Persiapan</td>
-                        <td>Notulensi tentang persiapan acara.</td>
+                        <td>Rapat Evaluasi Proyek A</td>
+                        <td>15 Oktober 2024, 10:00 - 12:00</td>
+                        <td>John Doe</td>
+                        <td>Jane Smith</td>
                         <td>
-                            <button class="btn btn-excel" onclick="exportToExcel('2024-10-15', 'Rapat Persiapan')">Excel</button>
-                            <button class="btn btn-pdf" onclick="exportToPDF('2024-10-15', 'Rapat Persiapan')">PDF</button>
+                            <a href="/path/to/pdf_dummy1.pdf" target="_blank" class="btn btn-sm btn-view-pdf">
+                                <i class="fas fa-file-pdf"></i> Lihat PDF
+                            </a>
                         </td>
                     </tr>
                     <tr>
-                        <td>2024-10-16</td>
-                        <td>Rapat Evaluasi</td>
-                        <td>Notulensi evaluasi kegiatan bulanan.</td>
+                        <td>Rapat Strategi Pemasaran Q4</td>
+                        <td>20 Oktober 2024, 14:00 - 16:00</td>
+                        <td>Alice Johnson</td>
+                        <td>Michael Brown</td>
                         <td>
-                            <button class="btn btn-excel" onclick="exportToExcel('2024-10-16', 'Rapat Evaluasi')">Excel</button>
-                            <button class="btn btn-pdf" onclick="exportToPDF('2024-10-16', 'Rapat Evaluasi')">PDF</button>
+                            <a href="/path/to/pdf_dummy2.pdf" target="_blank" class="btn btn-sm btn-view-pdf">
+                                <i class="fas fa-file-pdf"></i> Lihat PDF
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -117,7 +126,6 @@
         </div>
     </div>
 
-    <!-- Modal for creating new notulensi -->
     <!-- Modal for creating new notulensi -->
     <div class="modal fade" id="notulensiModal" tabindex="-1" role="dialog" aria-labelledby="notulensiModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -160,28 +168,25 @@
         const startBtn = document.getElementById('start-btn');
         const stopBtn = document.getElementById('stop-btn');
         let recognition;
-        let finalTranscript = ''; // Variabel untuk menyimpan semua teks yang dihasilkan
+        let finalTranscript = '';
 
-        // Cek apakah Web Speech API tersedia di browser
         if ('webkitSpeechRecognition' in window) {
             recognition = new webkitSpeechRecognition();
-            recognition.lang = 'id-ID'; // Sesuaikan bahasa pengenalan suara
-            recognition.continuous = true; // Rekaman berjalan terus menerus
-            recognition.interimResults = true; // Menampilkan hasil sementara saat merekam
+            recognition.lang = 'id-ID';
+            recognition.continuous = true;
+            recognition.interimResults = true;
 
             recognition.onresult = (event) => {
                 let interimTranscript = '';
-
                 for (let i = event.resultIndex; i < event.results.length; i++) {
                     let transcript = event.results[i][0].transcript;
                     if (event.results[i].isFinal) {
                         finalTranscript += transcript + ' ';
-                        document.getElementById('notulensi').value = finalTranscript; // Tambahkan hasil akhir ke textarea
+                        document.getElementById('notulensi').value = finalTranscript;
                     } else {
                         interimTranscript += transcript;
                     }
                 }
-
                 output.innerHTML = `<strong>Final:</strong> ${finalTranscript}<br><strong>Interim:</strong> ${interimTranscript}`;
             };
 
@@ -207,7 +212,6 @@
             output.innerText = 'Web Speech API is not supported in this browser.';
         }
     </script>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

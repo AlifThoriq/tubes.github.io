@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
     <style>
         body {
-            padding-top: 56px;
+            padding-top: 70px;
         }
 
         .container {
@@ -46,7 +46,7 @@
 <body>
 
     <!-- Navbar -->
-    <?= $this->include('navbar/navbar_admin'); ?>
+    <?= $this->include('navbar/navbar'); ?>
 
     <div class="container mt-4">
         <h1>Permohonan Rapat</h1>

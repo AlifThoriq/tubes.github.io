@@ -6,6 +6,11 @@ class RapatController extends BaseController
 {
     public function index()
     {
+
+        $user = [
+            'role' => 'SEKRETARIS JURUSAN',
+            'name' => 'Alif Yasir',
+        ];
         // Dummy data for the tables
         $permohonanRapat = [
             [
@@ -52,7 +57,7 @@ class RapatController extends BaseController
 
     public function persetujuan()
     {
-        return view('admin/persetujuan_rapat');
+        return view('persetujuan_notulen/persetujuan_notulen');
     }
     public function login()
     {
@@ -61,5 +66,15 @@ class RapatController extends BaseController
     public function register()
     {
         return view('auth/register');
+    }
+
+    public function agenda()
+    {
+        return view('agenda_rapat/agenda_rapat');
+    }
+
+    public function hasil()
+    {
+        return view('notulen/hasil_notulensi');
     }
 }

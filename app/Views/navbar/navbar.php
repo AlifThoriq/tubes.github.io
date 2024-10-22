@@ -1,53 +1,62 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">MRapat</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="#">
+            <i class="fas fa-clipboard-list"></i> MRapat
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/notulen"><i class="fas fa-pencil-alt"></i> Notulensi Rapat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/persetujuan-notulen"><i class="fas fa-check-circle"></i> Persetujuan Notulensi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/agenda-rapat"><i class="fas fa-calendar-alt"></i> Agenda Rapat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/notulen/hasil_rapat"><i class="fas fa-file-alt"></i> Hasil Notulensi</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
-
-<!-- Vertical Navbar -->
-<div class="sidebar">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/permohonan-rapat">Permohonan Rapat</a>
-            <a class="nav-link" href="/notulen">Notulensi Rapat</a>
-            <a class="nav-link" href="/absensi">Absensi Rapat</a>
-        </li>
-    </ul>
-</div>
-
 <style>
-    .sidebar {
-        position: fixed;
-        top: 56px;
-        /* Jarak dari navbar horizontal */
-        left: 0;
-        width: 200px;
-        /* Lebar sidebar */
-        height: calc(100% - 56px);
-        /* Sesuaikan tinggi sidebar */
-        background-color: #f8f9fa;
-        /* Warna latar belakang sidebar */
-        padding-top: 20px;
-        /* Ruang atas di sidebar */
-        border-right: 1px solid #ddd;
-        /* Garis pemisah */
+    /* Navbar Customization */
+    .navbar-brand {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
     }
 
-    .sidebar .nav-link {
-        color: #333;
-        /* Warna teks untuk link sidebar */
+    .navbar-nav .nav-link {
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
     }
 
-    .sidebar .nav-link:hover {
+    .navbar-nav .nav-link i {
+        margin-right: 5px;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
         background-color: #007bff;
-        /* Warna latar belakang saat hover */
-        color: white;
-        /* Warna teks saat hover */
+        border-radius: 5px;
+    }
+
+    .navbar-nav .nav-item.active .nav-link {
+        color: #ffffff !important;
+        background-color: #0056b3;
+        border-radius: 5px;
+    }
+
+    .navbar {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
