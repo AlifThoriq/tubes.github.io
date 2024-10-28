@@ -1,62 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
-    <div class="container">
-        <a class="navbar-brand font-weight-bold" href="#">
-            <i class="fas fa-clipboard-list"></i> MRapat
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/notulen"><i class="fas fa-pencil-alt"></i> Notulensi Rapat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/persetujuan-notulen"><i class="fas fa-check-circle"></i> Persetujuan Notulensi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/agenda-rapat"><i class="fas fa-calendar-alt"></i> Agenda Rapat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/notulen/hasil_rapat"><i class="fas fa-file-alt"></i> Hasil Notulensi</a>
-                </li>
-            </ul>
+<header class="bg-teal-500 shadow-lg fixed top-0 left-0 w-full z-50">
+    <div class="flex justify-between items-center px-6 py-4">
+        <!-- Logo / Title -->
+        <h1 class="text-2xl font-bold text-white">Sistem Notulen</h1>
+
+        <!-- Navigation Links -->
+        <nav class="flex items-center gap-8">
+            <a href="/" class="nav-link text-white hover:text-teal-300 text-lg">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a href="/notulen" class="nav-link text-white hover:text-teal-300 text-lg">
+                <i class="bi bi-calendar-plus"></i> Buat Rapat
+            </a>
+            <a href="/persetujuan-notulen" class="nav-link text-white hover:text-teal-300 text-lg">
+                <i class="bi bi-journal-text"></i> Rapat Anda
+            </a>
+            <a href="/agenda-rapat" class="nav-link text-white hover:text-teal-300 text-lg">
+                <i class="bi bi-file-earmark-text"></i> Lihat Notulen
+            </a>
+            <a href="/notulen/hasil_rapat" class="nav-link text-white hover:text-teal-300 text-lg">
+                <i class="bi bi-envelope-open"></i> Lihat Undangan Rapat
+            </a>
+        </nav>
+
+        <!-- Icon Buttons -->
+        <div class="flex items-center gap-4">
+            <!-- Mail Icon -->
+            <button class="icon-button text-white p-2 rounded-full focus:outline-none" onclick="alert('Mail clicked')">
+                <i class="bi bi-envelope-fill h-6 w-6"></i>
+            </button>
+            <!-- Settings Icon -->
+            <button class="icon-button text-white p-2 rounded-full focus:outline-none" onclick="alert('Settings clicked')">
+                <i class="bi bi-gear-fill h-6 w-6"></i>
+            </button>
+            <!-- Profile Icon -->
+            <button class="icon-button bg-teal-700 p-3 rounded-full focus:outline-none">
+                <i class="bi bi-person-circle h-6 w-6 text-white"></i>
+            </button>
         </div>
     </div>
-</nav>
-<style>
-    /* Navbar Customization */
-    .navbar-brand {
-        font-size: 1.5rem;
-        letter-spacing: 1px;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 1.1rem;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-link i {
-        margin-right: 5px;
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: #f8f9fa !important;
-        background-color: #007bff;
-        border-radius: 5px;
-    }
-
-    .navbar-nav .nav-item.active .nav-link {
-        color: #ffffff !important;
-        background-color: #0056b3;
-        border-radius: 5px;
-    }
-
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-</style>
+</header>
