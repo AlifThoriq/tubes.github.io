@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\loginmodel;
+
 class RapatController extends BaseController
 {
     public function index()
@@ -50,9 +52,9 @@ class RapatController extends BaseController
     {
         return view('notulen/notulensi_rapat');
     }
-    public function absen()
+    public function undangan()
     {
-        return view('absensi/absensi_rapat');
+        return view('undangan/undangan_rapat');
     }
 
     public function persetujuan()
@@ -70,7 +72,7 @@ class RapatController extends BaseController
 
     public function agenda()
     {
-        return view('agenda_rapat/agenda_rapat');
+        return view('agenda_rapat/buat_rapat');
     }
 
     public function hasil()

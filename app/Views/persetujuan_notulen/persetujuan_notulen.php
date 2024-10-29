@@ -4,103 +4,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Persetujuan Notulensi - MRapat</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Rapat - Sistem Notulen</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS for Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <style>
-        body {
-            padding-top: 70px;
-            background-color: #f4f6f9;
+        .custom-button {
+            background-color: #319795;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #2c7a7b;
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e0f7fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-row:hover {
+            background-color: #b2ebf2;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 20rem;
+            /* Tambahan jarak agar tidak ketutupan navbar */
         }
 
-        h1 {
-            margin-bottom: 1.5rem;
-            text-align: center;
+        /* Modal styling */
+        .modal-header,
+        .modal-body {
+            font-size: 16px;
             color: #333;
         }
 
-        .table-container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Heading style */
+        .section-heading {
+            font-size: 24px;
+            font-weight: 600;
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .table th,
-        .table td {
-            vertical-align: middle;
-        }
-
-        .btn-approve {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-reject {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .table-container {
-            margin-top: 40px;
+        .mx-custom {
+            margin-top: 130px;
+            /* Sesuaikan dengan tinggi navbar atau kebutuhan lainnya */
         }
     </style>
 </head>
 
-<body>
-
-    <!-- Include Navbar -->
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
     <?= $this->include('navbar/navbar'); ?>
 
-    <div class="container mt-5">
-        <!-- Daftar Persetujuan Notulensi -->
-        <div class="table-container">
-            <h1 class="dashboard-title mb-4">Daftar Notulensi untuk Persetujuan</h1>
-            <table class="table table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nama Rapat</th>
-                        <th>Waktu</th>
-                        <th>Poin Pembahasan</th>
-                        <th>Keputusan</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example of Dummy Data -->
-                    <tr>
-                        <td>Rapat Koordinasi Proyek</td>
-                        <td>22 Oktober 2024, 09:00 - 11:00</td>
-                        <td>Diskusi Progres Pembangunan</td>
-                        <td>Setujui Pemakaian Material X</td>
-                        <td>
-                            <button class="btn btn-sm btn-approve"><i class="fas fa-check"></i> Setujui</button>
-                            <button class="btn btn-sm btn-reject"><i class="fas fa-times"></i> Tolak</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Rapat Bulanan Marketing</td>
-                        <td>25 Oktober 2024, 13:00 - 15:00</td>
-                        <td>Evaluasi Kampanye Q4</td>
-                        <td>Lanjutkan Strategi</td>
-                        <td>
-                            <button class="btn btn-sm btn-approve"><i class="fas fa-check"></i> Setujui</button>
-                            <button class="btn btn-sm btn-reject"><i class="fas fa-times"></i> Tolak</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="container mx-custom ">
+        <!-- Buttons for Role Selection -->
+        <div class="flex space-x-4 mb-6 justify-center">
+            <button id="btnKetua" class="custom-button">Sebagai Ketua Rapat</button>
+            <button id="btnNotulen" class="custom-button">Sebagai Notulen Rapat</button>
+            <button id="btnAnggota" class="custom-button">Sebagai Anggota Rapat</button>
+        </div>
+
+        <!-- Rapat Table -->
+        <div id="tableContainer" class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="section-heading">Daftar Rapat Berdasarkan Peran</h2>
+            <div id="dataTable">
+                <!-- Content dynamically changes based on the selected role -->
+            </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal for Detail Rapat -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Rapat</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nama Rapat:</strong> <span id="modalNamaRapat"></span></p>
+                    <p><strong>Topik:</strong> <span id="modalTopik"></span></p>
+                    <p><strong>Tanggal:</strong> <span id="modalTanggal"></span></p>
+                    <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- JavaScript for Role Selection and Modal -->
+    <script>
+        const dummyData = {
+            ketua: [{
+                    nama: "Rapat 1",
+                    topik: "Topik A",
+                    tanggal: "2024-10-20",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 2",
+                    topik: "Topik B",
+                    tanggal: "2024-10-22",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 3",
+                    topik: "Topik C",
+                    tanggal: "2024-10-25",
+                    status: "Selesai"
+                },
+                {
+                    nama: "Rapat 4",
+                    topik: "Topik D",
+                    tanggal: "2024-10-27",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 5",
+                    topik: "Topik E",
+                    tanggal: "2024-10-30",
+                    status: "Belum Aktif"
+                },
+            ],
+            notulen: [{
+                    nama: "Rapat 1",
+                    topik: "Topik F",
+                    tanggal: "2024-10-21",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 2",
+                    topik: "Topik G",
+                    tanggal: "2024-10-23",
+                    status: "Selesai"
+                },
+                {
+                    nama: "Rapat 3",
+                    topik: "Topik H",
+                    tanggal: "2024-10-26",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 4",
+                    topik: "Topik I",
+                    tanggal: "2024-10-28",
+                    status: "Belum Aktif"
+                },
+                {
+                    nama: "Rapat 5",
+                    topik: "Topik J",
+                    tanggal: "2024-10-29",
+                    status: "Selesai"
+                },
+            ],
+            anggota: [{
+                    nama: "Rapat 1",
+                    topik: "Topik K",
+                    tanggal: "2024-10-24",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 2",
+                    topik: "Topik L",
+                    tanggal: "2024-10-26",
+                    status: "Selesai"
+                },
+                {
+                    nama: "Rapat 3",
+                    topik: "Topik M",
+                    tanggal: "2024-10-28",
+                    status: "Aktif"
+                },
+                {
+                    nama: "Rapat 4",
+                    topik: "Topik N",
+                    tanggal: "2024-10-29",
+                    status: "Belum Aktif"
+                },
+                {
+                    nama: "Rapat 5",
+                    topik: "Topik O",
+                    tanggal: "2024-10-31",
+                    status: "Selesai"
+                },
+            ],
+        };
+
+        function loadTable(role) {
+            const data = dummyData[role];
+            const tableContainer = document.getElementById("dataTable");
+            tableContainer.innerHTML = "";
+
+            data.forEach((rapat) => {
+                const row = document.createElement("div");
+                row.className = "table-row";
+                row.innerHTML = `
+                    <span class="font-semibold text-lg">${rapat.nama} - ${rapat.topik} - ${rapat.tanggal}</span>
+                    <button class="custom-button" onclick="showDetailModal('${rapat.nama}', '${rapat.topik}', '${rapat.tanggal}', '${rapat.status}')">Detail Rapat</button>
+                `;
+                tableContainer.appendChild(row);
+            });
+        }
+
+        function showDetailModal(nama, topik, tanggal, status) {
+            document.getElementById("modalNamaRapat").textContent = nama;
+            document.getElementById("modalTopik").textContent = topik;
+            document.getElementById("modalTanggal").textContent = tanggal;
+            document.getElementById("modalStatus").textContent = status;
+            new bootstrap.Modal(document.getElementById("detailModal")).show();
+        }
+
+        document.getElementById("btnKetua").addEventListener("click", () => loadTable("ketua"));
+        document.getElementById("btnNotulen").addEventListener("click", () => loadTable("notulen"));
+        document.getElementById("btnAnggota").addEventListener("click", () => loadTable("anggota"));
+
+        // Load initial data for Ketua role
+        loadTable("ketua");
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

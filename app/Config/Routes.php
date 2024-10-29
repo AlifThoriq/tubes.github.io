@@ -9,13 +9,13 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('/permohonan-rapat', 'RapatController::create');
 
 
-
+$routes->get('/permohonan_rapat', 'RapatController::create');
 $routes->get('/notulen', 'RapatController::mow');
 $routes->get('/notulen/hasil_rapat', 'RapatController::hasil');
 $routes->get('/agenda-rapat', 'RapatController::agenda');
-// $routes->get('/absensi', 'RapatController::absen');
-$routes->get('/auth', 'RapatController::register');
-$routes->get('/auth', 'RapatController::login');
+$routes->get('/undangan', 'RapatController::undangan');
+$routes->get('/auth/register', 'RapatController::register');
+$routes->get('/auth/login', 'RapatController::login');
 $routes->get('/persetujuan-notulen', 'RapatController::persetujuan');
 $routes->get('/', 'RapatController::index');
 $routes->get('/users', 'Users::index');

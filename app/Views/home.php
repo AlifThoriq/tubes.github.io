@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - MRapat</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Sistem Notulen</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS for Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
     <style>
         body {
             padding-top: 70px;
@@ -63,35 +67,67 @@
         }
 
         /* Navbar Customization */
-        .navbar-brand {
-            font-size: 1.5rem;
-            letter-spacing: 1px;
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            color: white;
         }
 
-        .navbar-nav .nav-link {
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
+        .nav-link:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
         }
 
-        .navbar-nav .nav-link i {
-            margin-right: 5px;
+        .icon-button {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .navbar-nav .nav-link:hover {
-            color: #f8f9fa !important;
-            background-color: #007bff;
-            border-radius: 5px;
+        .icon-button:hover {
+            background-color: #319795;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .navbar-nav .nav-item.active .nav-link {
-            color: #ffffff !important;
-            background-color: #0056b3;
-            border-radius: 5px;
+
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 80px;
+            /* Offset to prevent overlap with navbar */
         }
 
-        .navbar {
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            background-color: #a0e1e9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: #c3f0f4;
+            color: #055a63;
+            border-radius: 8px;
+            text-align: center;
+            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .card-number {
+            font-size: 2rem;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -101,31 +137,49 @@
     <!-- Include Navbar -->
     <?= $this->include('navbar/navbar'); ?>
 
-    <div class="container mt-5">
-        <!-- Daftar Permohonan Rapat -->
-        <div class="table-container">
-            <h1 class="dashboard-title mb-4">Daftar Permohonan Rapat yang Disetujui</h1>
-            <table class="table table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Waktu Masuk</th>
-                        <th>Waktu Keluar</th>
-                        <th>Nama Rapat</th>
-                        <th>Ruangan Rapat</th>
-                        <th>Ketua</th>
-                        <th>Notulen</th>
-                        <th>Peserta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example of Dummy Data -->
-                    <tr>
-                        <td>09:00</td>
-                        <td>11:00</td>
-                        <td>Rapat Koordinasi Proyek</td>
-                        <td>Ruang A</td>
-                        <td><span class="badge badge-role badge-ketua">Budi Santoso</span></td>
-                        <td><span class="badge badge-role badge-notulen">Ani Setiawan</span></td>
-                        <td>
-                            <span class="badge badge-role badge-anggota">John Doe</span>,
-                            <span class="badge badge-role badge-anggota">Sarah Lee</span
+    <div class="content-wrapper">
+        <!-- Responsive Dashboard Cards -->
+        <div class="card-container">
+            <!-- Ketua Rapat Section -->
+            <div class="card">
+                <div class="card-title">Ketua Rapat</div>
+                <div class="card-number">7</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Ketua</div>
+                <div class="card-number">12</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Notulensi</div>
+                <div class="card-number">5</div>
+            </div>
+
+            <!-- Notulen Section -->
+            <div class="card">
+                <div class="card-title">Anggota</div>
+                <div class="card-number">23</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Notulensi Rapat</div>
+                <div class="card-number">3</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Tidak Diikuti</div>
+                <div class="card-number">5</div>
+            </div>
+
+            <!-- Undangan Rapat Section -->
+            <div class="card">
+                <div class="card-title">Sudah Konfirmasi</div>
+                <div class="card-number">8</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Belum Konfirmasi</div>
+                <div class="card-number">13</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

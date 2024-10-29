@@ -1,23 +1,23 @@
-<header class="bg-teal-500 shadow-lg fixed top-0 left-0 w-full z-50">
+<header class="bg-blue-600 shadow-lg fixed top-0 left-0 w-full z-50">
     <div class="flex justify-between items-center px-6 py-4">
         <!-- Logo / Title -->
-        <h1 class="text-2xl font-bold text-white">Sistem Notulen</h1>
+        <h1 class="text-lg font-bold text-white">Sistem Notulen</h1>
 
         <!-- Navigation Links -->
         <nav class="flex items-center gap-8">
             <a href="/" class="nav-link text-white hover:text-teal-300 text-lg">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
-            <a href="/notulen" class="nav-link text-white hover:text-teal-300 text-lg">
+            <a href="/agenda-rapat" class="nav-link text-white hover:text-teal-300 text-lg">
                 <i class="bi bi-calendar-plus"></i> Buat Rapat
             </a>
             <a href="/persetujuan-notulen" class="nav-link text-white hover:text-teal-300 text-lg">
                 <i class="bi bi-journal-text"></i> Rapat Anda
             </a>
-            <a href="/agenda-rapat" class="nav-link text-white hover:text-teal-300 text-lg">
+            <a href="/permohonan_rapat" class="nav-link text-white hover:text-teal-300 text-lg">
                 <i class="bi bi-file-earmark-text"></i> Lihat Notulen
             </a>
-            <a href="/notulen/hasil_rapat" class="nav-link text-white hover:text-teal-300 text-lg">
+            <a href="/undangan" class="nav-link text-white hover:text-teal-300 text-lg">
                 <i class="bi bi-envelope-open"></i> Lihat Undangan Rapat
             </a>
         </nav>
